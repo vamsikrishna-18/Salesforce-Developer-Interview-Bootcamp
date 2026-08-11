@@ -1,0 +1,51 @@
+<template>
+    <lightning-card title="Eligible Jobs" icon-name="standard:job_profile">
+
+        <div class="slds-p-around_medium">
+
+            <!-- Loading State -->
+            <template if:true={isLoading}>
+                <lightning-spinner
+                    alternative-text="Loading jobs"
+                    size="medium">
+                </lightning-spinner>
+            </template>
+
+            <!-- Error State -->
+            <template if:true={errorMessage}>
+                <div class="slds-text-color_error slds-p-around_medium">
+                    {errorMessage}
+                </div>
+            </template>
+
+            <!-- Empty State -->
+            <template if:true={showEmptyState}>
+                <div class="slds-align_absolute-center slds-p-around_medium">
+                    No eligible jobs available.
+                </div>
+            </template>
+
+            <!-- Job List -->
+            <template if:true={hasJobs}>
+                <div class="slds-grid slds-wrap">
+
+                    <template for:each={jobs} for:item="job">
+                        <div
+                            key={job.Id}
+                            class="slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-3 slds-p-around_small">
+
+                            <c-job-card
+                                job={job}
+                                onapply={handleApply}>
+                            </c-job-card>
+
+                        </div>
+                    </template>
+
+                </div>
+            </template>
+
+        </div>
+
+    </lightning-card>
+</template>
